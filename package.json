@@ -16,7 +16,8 @@
     "make:fixtures": "tsx scripts/make-fixtures.ts",
     "ingest:demo": "tsx scripts/ingest-demo.ts",
     "seed": "tsx scripts/seed-agents/run-all.ts",
-    "leaderboard": "tsx scripts/leaderboard.ts"
+    "leaderboard": "tsx scripts/leaderboard.ts",
+    "sdk:example": "tsx scripts/sdk-example.ts"
   },
   "devDependencies": {
     "dotenv": "^16.4.7",

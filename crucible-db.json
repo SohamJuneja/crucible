@@ -29,6 +29,11 @@
       "walletAddress": "0xAb7E7743cA7e56480f9CD695FD9Ba101cdFA250f",
       "score": 72.3329325083414,
       "updatedAt": 1781435100
+    },
+    "190": {
+      "walletAddress": "0xC972B891e82C728D6E1cc1234667F0FA4dA90e49",
+      "score": 92.5,
+      "updatedAt": 1781436475
     }
   },
   "verifications": [
@@ -135,6 +140,19 @@
       "validationTxHash": "0xc2941e984ab8ed178fda5cf7291c544643f69645a0b33fe944ad4f20e258ba72",
       "feedbackTxHash": "0x71590ae411f795896a833e8c997c29376dab6117d30e6c07e994e8cdbbf767f3",
       "createdAt": 1781435100
+    },
+    {
+      "id": 9,
+      "agentId": "190",
+      "txHash": "0x749bdf74eab000c5ebcbf2a646fd18a81aff6d4bb37606d155fd290eebad95f3",
+      "verdict": "VERIFIED",
+      "truthScore": 1,
+      "resultJson": "{\"claim\":{\"agentId\":\"190\",\"agentAddress\":\"0xC972B891e82C728D6E1cc1234667F0FA4dA90e49\",\"action\":\"swap\",\"txHash\":\"0x749bdf74eab000c5ebcbf2a646fd18a81aff6d4bb37606d155fd290eebad95f3\",\"params\":{\"tokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"tokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"amountIn\":\"100000000000000000\",\"amountOut\":\"200000000000000000\"},\"timestamp\":\"2026-06-14T11:27:40.343Z\"},\"verdict\":\"VERIFIED\",\"truthScore\":1,\"derived\":{\"txExists\":true,\"txSuccess\":true,\"actualTokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"actualTokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"actualAmountIn\":\"100000000000000000\",\"actualAmountOut\":\"200000000000000000\"},\"reasons\":[]}",
+      "evidenceUri": "ipfs://QmNaYiCFzRhosrP8LuVCnCKGQjto4rmJjq2MNLcjFTg9MT",
+      "requestHash": "0xb0f43e8a14fc9b2df20bb93fa4aea1e388fda9776030e6e2434bdce744f8e4ff",
+      "validationTxHash": "0xaabd023abb3614f3061860db3e6b879d110ece4314c1b8604254e228ca34e26c",
+      "feedbackTxHash": "0x83a0e0ac68e82f549624c6150f3efdd15569d880820fed714d7ab095d7edfe67",
+      "createdAt": 1781436475
     }
   ]
 }

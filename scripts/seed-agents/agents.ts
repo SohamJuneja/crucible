@@ -7,16 +7,11 @@
 import 'dotenv/config'
 import fs from 'fs'
 import path from 'path'
-import {
-  createPublicClient,
-  createWalletClient,
-  http,
-  parseEther,
-  decodeEventLog,
-} from 'viem'
+import { createPublicClient, createWalletClient, http, parseEther } from 'viem'
 import { mantleSepoliaTestnet } from 'viem/chains'
 import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'
-import { getWalletClient, IDENTITY_REGISTRY_ADDRESS, identityRegistryAbi } from '@crucible/core'
+import { getWalletClient } from '@crucible/core'
+import { CrucibleClient } from '@crucible/sdk'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -126,37 +121,14 @@ export async function ensureRegistered(
     return agent.agentId
   }
 
-  console.log(`[${bot}] registering on IdentityRegistry...`)
-  const wallet = makeBotWallet(agent)
-  let hash: `0x${string}`
-  try {
-    hash = await wallet.writeContract({
-      address: IDENTITY_REGISTRY_ADDRESS, abi: identityRegistryAbi,
-      functionName: 'register', args: [`https://crucible.local/seed/${bot}.json`],
-    })
-  } catch {
-    hash = await wallet.writeContract({
-      address: IDENTITY_REGISTRY_ADDRESS, abi: identityRegistryAbi,
-      functionName: 'register', args: [`https://crucible.local/seed/${bot}.json`],
-      gas: 300_000n,
-    })
-  }
-  const receipt = await publicClient.waitForTransactionReceipt({ hash })
-  if (receipt.status !== 'success') throw new Error(`[${bot}] register reverted  ${hash}`)
+  console.log(`[${bot}] registering via CrucibleClient...`)
+  const client = new CrucibleClient({ agentPrivateKey: agent.privateKey })
+  const { agentId, txHash } = await client.registerAgent({ name: bot, description: `Crucible seed bot: ${bot}` })
 
-  let agentId: bigint | undefined
-  for (const log of receipt.logs) {
-    try {
-      const d = decodeEventLog({ abi: identityRegistryAbi, data: log.data, topics: log.topics })
-      if (d.eventName === 'Registered') { agentId = (d.args as unknown as { agentId: bigint }).agentId; break }
-    } catch {}
-  }
-  if (agentId === undefined) throw new Error(`[${bot}] Registered event not found`)
-
-  agent.agentId = agentId.toString()
+  agent.agentId = agentId
   saveState(state)
-  console.log(`[${bot}] registered agentId=${agent.agentId}  tx=${hash}`)
-  return agent.agentId
+  console.log(`[${bot}] registered agentId=${agentId}  tx=${txHash}`)
+  return agentId
 }
 
 // ── Swap helper ────────────────────────────────────────────────────────────────

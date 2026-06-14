@@ -13,9 +13,10 @@ import {
   loadState, makeBotWallet, topUpIfNeeded, ensureRegistered, doSwap, publicClient,
   type BotName, type SeedState,
 } from './agents'
-import { ingestClaim, getAgentHistory } from '@crucible/indexer'
+import { getAgentHistory } from '@crucible/indexer'
 import { REPUTATION_REGISTRY_ADDRESS, reputationRegistryAbi, getWalletClient } from '@crucible/core'
 import { computeScore } from '@crucible/scoring'
+import { CrucibleClient } from '@crucible/sdk'
 import type { AgentClaim } from '@crucible/core'
 import fixtures from '../../packages/engine/src/__tests__/fixtures.json'
 
@@ -50,7 +51,8 @@ async function runHonestBot(state: SeedState): Promise<void> {
     timestamp: new Date().toISOString(),
   }
   console.log(`  claiming amountOut=${swap.actualAmountOut} (exact truth) → expect VERIFIED`)
-  await ingestClaim(claim, state['honest-bot'].privateKey)
+  const client = new CrucibleClient({ agentPrivateKey: state['honest-bot'].privateKey })
+  await client.submitClaim(claim)
 }
 
 // ── mediocre-bot: real swap, but inflates amountOut by 25% ────────────────────
@@ -80,7 +82,8 @@ async function runMediocreBot(state: SeedState): Promise<void> {
     timestamp: new Date().toISOString(),
   }
   console.log(`  actual=${swap.actualAmountOut}  claimed=${inflatedOut} (+25%) → expect EXAGGERATED`)
-  await ingestClaim(claim, state['mediocre-bot'].privateKey)
+  const client = new CrucibleClient({ agentPrivateKey: state['mediocre-bot'].privateKey })
+  await client.submitClaim(claim)
 }
 
 // ── liar-bot: 2 honest claims, then one fabricated (reversed token pair) ───────
@@ -91,9 +94,11 @@ async function runLiarBot(state: SeedState): Promise<void> {
   const agentId = await ensureRegistered('liar-bot', state['liar-bot'], state)
   const wallet  = makeBotWallet(state['liar-bot'])
 
+  const client = new CrucibleClient({ agentPrivateKey: state['liar-bot'].privateKey })
+
   // ── Claim 1: honest → VERIFIED (builds apparent trust) ──────────────────────
   const swap1 = await doSwap('liar-bot', wallet, TOKEN_A, TOKEN_B, DEX, AMOUNT_IN)
-  await ingestClaim({
+  await client.submitClaim({
     agentId,
     agentAddress: wallet.account.address,
     action:       'swap',
@@ -105,12 +110,12 @@ async function runLiarBot(state: SeedState): Promise<void> {
       amountOut: swap1.actualAmountOut.toString(),
     },
     timestamp: new Date().toISOString(),
-  } satisfies AgentClaim, state['liar-bot'].privateKey)
+  } satisfies AgentClaim)
   console.log(`  claim 1 (truthful) → expect VERIFIED`)
 
   // ── Claim 2: honest → VERIFIED ────────────────────────────────────────────────
   const swap2 = await doSwap('liar-bot', wallet, TOKEN_A, TOKEN_B, DEX, AMOUNT_IN)
-  await ingestClaim({
+  await client.submitClaim({
     agentId,
     agentAddress: wallet.account.address,
     action:       'swap',
@@ -122,13 +127,14 @@ async function runLiarBot(state: SeedState): Promise<void> {
       amountOut: swap2.actualAmountOut.toString(),
     },
     timestamp: new Date().toISOString(),
-  } satisfies AgentClaim, state['liar-bot'].privateKey)
+  } satisfies AgentClaim)
   console.log(`  claim 2 (truthful) → expect VERIFIED`)
 
   // ── Claim 3: FABRICATED — reuse swap2's txHash but assert REVERSED token pair
   //    Engine will decode actual tokenIn=TOKEN_A, but claim says tokenIn=TOKEN_B
   //    → wrong_tokenIn → FALSE_CLAIM
-  const fabricated: AgentClaim = {
+  console.log(`  claim 3 (FABRICATED: reversed token pair on real tx) → expect FALSE_CLAIM`)
+  await client.submitClaim({
     agentId,
     agentAddress: wallet.account.address,
     action:       'swap',
@@ -140,9 +146,7 @@ async function runLiarBot(state: SeedState): Promise<void> {
       amountOut: swap2.actualAmountIn.toString(),
     },
     timestamp: new Date().toISOString(),
-  }
-  console.log(`  claim 3 (FABRICATED: reversed token pair on real tx) → expect FALSE_CLAIM`)
-  await ingestClaim(fabricated, state['liar-bot'].privateKey)
+  } satisfies AgentClaim)
 }
 
 // ── Leaderboard ────────────────────────────────────────────────────────────────
