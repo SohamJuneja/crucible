@@ -14,7 +14,9 @@
     "deploy:validation": "tsx scripts/deploy-validation.ts",
     "register:agent": "tsx scripts/register-agent.ts",
     "make:fixtures": "tsx scripts/make-fixtures.ts",
-    "ingest:demo": "tsx scripts/ingest-demo.ts"
+    "ingest:demo": "tsx scripts/ingest-demo.ts",
+    "seed": "tsx scripts/seed-agents/run-all.ts",
+    "leaderboard": "tsx scripts/leaderboard.ts"
   },
   "devDependencies": {
     "dotenv": "^16.4.7",

@@ -28,3 +28,9 @@ coverage/
 
 # artifacts (populated after deploy)
 artifacts/deployed.json
+
+# seed agent wallets — contain private keys, never commit
+.seed-agents.json
+
+# local indexer store
+crucible-db.json

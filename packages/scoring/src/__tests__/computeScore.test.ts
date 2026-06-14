@@ -23,7 +23,7 @@ function makeResult(verdict: Verdict, truthScore: number): VerificationResult {
 }
 
 const verified    = () => makeResult('VERIFIED',    1)
-const exaggerated = () => makeResult('EXAGGERATED', 0.7)
+const exaggerated = () => makeResult('EXAGGERATED', 0.75)   // 25% below claim — clear exaggeration
 const falseClaim  = () => makeResult('FALSE_CLAIM', 0)
 
 // ── tests ──────────────────────────────────────────────────────────────────────
@@ -40,34 +40,54 @@ describe('computeScore', () => {
     expect(score).toBeLessThanOrEqual(100)
   })
 
-  it('EXAGGERATED lowers score vs identical VERIFIED history', () => {
-    const honest      = computeScore([verified(), verified(), verified()])
-    const exaggerator = computeScore([exaggerated(), exaggerated(), exaggerated()])
-    console.log({ honest: honest.toFixed(2), exaggerator: exaggerator.toFixed(2) })
-    expect(exaggerator).toBeLessThan(honest)
+  it('strict ordering: honest > exaggerator > liar', () => {
+    const honestScore     = computeScore([verified(),    verified(),    verified(),    verified(),    verified()])
+    const exaggeratorScore = computeScore([exaggerated(), exaggerated(), exaggerated(), exaggerated(), exaggerated()])
+    const liarScore       = computeScore([verified(),    verified(),    verified(),    verified(),    falseClaim()])
+
+    console.log({ honestScore: honestScore.toFixed(2), exaggeratorScore: exaggeratorScore.toFixed(2), liarScore: liarScore.toFixed(2) })
+
+    expect(honestScore).toBeGreaterThan(exaggeratorScore)
+    expect(exaggeratorScore).toBeGreaterThan(liarScore)
   })
 
-  it('liar (one FALSE_CLAIM, same PnL) scores strictly below honest agent', () => {
-    const honestHistory = [
+  it('any history with FALSE_CLAIM scores below any reasonable history without one', () => {
+    // Liar with a strong VERIFIED record — still capped by FALSE_CLAIM penalty
+    const strongLiar = computeScore([
       verified(), verified(), verified(), verified(), verified(),
-    ]
-    // same four VERIFIED trades, then one FALSE_CLAIM
-    const lyingHistory = [
       verified(), verified(), verified(), verified(), falseClaim(),
-    ]
+    ])
+    // A single mediocre exaggerated trade (no false claims)
+    const singleExaggerated = computeScore([exaggerated()])
 
-    const honestScore = computeScore(honestHistory)
-    const lyingScore  = computeScore(lyingHistory)
+    console.log({ strongLiar: strongLiar.toFixed(2), singleExaggerated: singleExaggerated.toFixed(2) })
 
-    console.log({
-      honestScore:  honestScore.toFixed(2),
-      lyingScore:   lyingScore.toFixed(2),
-      penaltyDelta: (honestScore - lyingScore).toFixed(2),
-    })
+    expect(strongLiar).toBeLessThan(singleExaggerated)
+  })
 
-    // Core invariant: a lying agent must NEVER outscore an honest one
-    expect(lyingScore).toBeLessThan(honestScore)
-    // The gap must be substantial (>= 15 pts) — truthfulness cap alone gives ~21 pts difference
-    expect(honestScore - lyingScore).toBeGreaterThanOrEqual(15)
+  it('FALSE_CLAIM hard cap is at most 35 regardless of other verdicts', () => {
+    const liarWithPerfectRecord = computeScore([
+      verified(), verified(), verified(), verified(), verified(),
+      verified(), verified(), verified(), verified(), verified(),
+      falseClaim(),
+    ])
+    console.log('liar with perfect record, capped:', liarWithPerfectRecord.toFixed(2))
+    expect(liarWithPerfectRecord).toBeLessThanOrEqual(35)
+  })
+
+  it('each additional FALSE_CLAIM lowers the cap by 10', () => {
+    const oneLie   = computeScore([verified(), verified(), falseClaim()])
+    const twoLies  = computeScore([verified(), verified(), falseClaim(), falseClaim()])
+    const threeLies = computeScore([verified(), verified(), falseClaim(), falseClaim(), falseClaim()])
+
+    console.log({ oneLie: oneLie.toFixed(2), twoLies: twoLies.toFixed(2), threeLies: threeLies.toFixed(2) })
+
+    // Caps: 35, 25, 15 — score should respect those ceilings
+    expect(oneLie).toBeLessThanOrEqual(35)
+    expect(twoLies).toBeLessThanOrEqual(25)
+    expect(threeLies).toBeLessThanOrEqual(15)
+    // More lies → equal or lower score
+    expect(twoLies).toBeLessThanOrEqual(oneLie)
+    expect(threeLies).toBeLessThanOrEqual(twoLies)
   })
 })
