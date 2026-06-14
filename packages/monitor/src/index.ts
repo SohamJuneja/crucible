@@ -1,0 +1,5 @@
+export { assessIntent }        from './assessIntent.js'
+export type { AssessOptions, AssessClient } from './assessIntent.js'
+export { watchAgent }          from './watchAgent.js'
+export { addToAllowlist, BASE_ALLOWLIST } from './allowlist.js'
+export type { Intent, Decision, RiskAssessment, AgentEvent } from './types.js'
