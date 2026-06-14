@@ -33,6 +33,7 @@ export interface VerificationResult {
     actualAmountOut?: string
     actualPnlUsd?: string
     slippagePct?: number
+    protocol?: string   // e.g. "Agni (UniswapV3)", "Lendle (Aave V2)"
   }
   reasons: string[]
   evidenceCid?: string
