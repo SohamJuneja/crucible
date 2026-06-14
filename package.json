@@ -17,6 +17,7 @@
     "ingest:demo": "tsx scripts/ingest-demo.ts",
     "seed": "tsx scripts/seed-agents/run-all.ts",
     "leaderboard":    "tsx scripts/leaderboard.ts",
+    "deploy:suite":   "tsx scripts/deploy-contracts-suite.ts",
     "firewall:demo":  "tsx scripts/firewall-demo.ts",
     "sdk:example": "tsx scripts/sdk-example.ts",
     "web": "npm run dev -w @crucible/web"

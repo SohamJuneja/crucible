@@ -20,6 +20,7 @@ import {
   keccak256,
   toHex,
   type Abi,
+  type TypedDataDomain,
 } from 'viem'
 import { mantleSepoliaTestnet } from 'viem/chains'
 import { privateKeyToAccount } from 'viem/accounts'
@@ -37,6 +38,26 @@ import {
   getAgentHistory,
   updateAgentScore,
 } from './db.js'
+
+// ── Inline ABIs for Phase 8 contracts (no dependency on deploy script ABIs) ──
+
+const SCOREBOARD_ABI = [
+  {
+    name: 'setScore', type: 'function', stateMutability: 'nonpayable',
+    inputs: [{ name: 'agentId', type: 'uint256' }, { name: 'score', type: 'uint16' }],
+    outputs: [],
+  },
+] as const satisfies Abi
+
+const VERDICT_TYPES = {
+  Verdict: [
+    { name: 'agentId',      type: 'uint256' },
+    { name: 'txHash',       type: 'bytes32' },
+    { name: 'verdict',      type: 'uint8'   },
+    { name: 'truthScore',   type: 'uint16'  },
+    { name: 'evidenceHash', type: 'bytes32' },
+  ],
+} as const
 
 // ── ValidationRegistry ABI (inline — no dependency on deploy script output) ──
 const VALIDATION_REGISTRY_ABI = [
@@ -90,6 +111,12 @@ function getValidationRegistryAddress(): `0x${string}` {
   return addr as `0x${string}`
 }
 
+function getDeployedAddresses(): Record<string, { address?: string }> | null {
+  const p = path.resolve(process.cwd(), 'artifacts/deployed.json')
+  if (!fs.existsSync(p)) return null
+  return JSON.parse(fs.readFileSync(p, 'utf8')) as Record<string, { address?: string }>
+}
+
 async function resolveEvidenceUri(evidenceJson: string): Promise<string> {
   if (process.env.PINATA_JWT) {
     const res = await fetch('https://api.pinata.cloud/pinning/pinJSONToIPFS', {
@@ -138,12 +165,14 @@ async function writeWithGas(
 // ── Public API ─────────────────────────────────────────────────────────────────
 
 export interface IngestResult {
-  verificationResult: VerificationResult
-  requestHash:        `0x${string}`
-  validationTxHash:   `0x${string}`
-  feedbackTxHash:     `0x${string}`
-  score:              number
-  evidenceUri:        string
+  verificationResult:   VerificationResult
+  requestHash:          `0x${string}`
+  validationTxHash:     `0x${string}`
+  feedbackTxHash:       `0x${string}`
+  score:                number
+  evidenceUri:          string
+  scoreboardTxHash?:    `0x${string}`   // Phase 8 — CrucibleScoreboard.setScore
+  attestationSignature?: string          // Phase 8 — EIP-712 signed verdict
 }
 
 export async function ingestClaim(
@@ -284,22 +313,84 @@ export async function ingestClaim(
     console.error(`  [diag] readAllFeedback threw:`, readErr)
   }
 
-  // 9. Persist to SQLite
+  // 9. CrucibleScoreboard.setScore — additive, graceful skip if not deployed
+  let scoreboardTxHash: `0x${string}` | undefined
+  {
+    const deployed = getDeployedAddresses()
+    const sbAddress = deployed?.CrucibleScoreboard?.address as `0x${string}` | undefined
+    if (sbAddress) {
+      console.log(`\n[ingest] setScore → CrucibleScoreboard at ${sbAddress}`)
+      const scoreEncoded = Math.round(score * 100)
+      try {
+        scoreboardTxHash = await writeWithGas(crucibleWallet, pc, {
+          address:      sbAddress,
+          abi:          SCOREBOARD_ABI,
+          functionName: 'setScore',
+          args:         [BigInt(claim.agentId), scoreEncoded],
+        } as never, 'setScore')
+        console.log(`[ingest] scoreboard tx → ${scoreboardTxHash}`)
+      } catch (sbErr) {
+        console.warn(`[ingest] setScore failed (non-fatal):`, sbErr)
+      }
+    } else {
+      console.log('[ingest] CrucibleScoreboard not deployed — skipping setScore')
+    }
+  }
+
+  // 10. EIP-712 Verdict signature — off-chain, no gas; stored alongside the record
+  let attestationSignature: string | undefined
+  {
+    const deployed = getDeployedAddresses()
+    const attAddress = deployed?.CrucibleAttestation?.address as `0x${string}` | undefined
+    if (attAddress) {
+      try {
+        const verdictNum = VERDICT_CODE[result.verdict] as number
+        const truthScoreEncoded = Math.round(result.truthScore * 10000)
+        const domain: TypedDataDomain = {
+          name:              'Crucible',
+          version:           '1',
+          chainId:           mantleSepoliaTestnet.id,
+          verifyingContract: attAddress,
+        }
+        attestationSignature = await crucibleWallet.signTypedData({
+          domain,
+          types:         VERDICT_TYPES,
+          primaryType:   'Verdict',
+          message: {
+            agentId:      BigInt(claim.agentId),
+            txHash:       claim.txHash as `0x${string}`,
+            verdict:      verdictNum,
+            truthScore:   truthScoreEncoded,
+            evidenceHash: evidenceBytes32,
+          },
+        })
+        console.log(`[ingest] EIP-712 attestation signature: ${attestationSignature.slice(0, 20)}...`)
+      } catch (attErr) {
+        console.warn('[ingest] EIP-712 signing failed (non-fatal):', attErr)
+      }
+    } else {
+      console.log('[ingest] CrucibleAttestation not deployed — skipping EIP-712 sign')
+    }
+  }
+
+  // 11. Persist to store
   upsertAgent(claim.agentId, claim.agentAddress)
   insertVerification({
-    agentId:           claim.agentId,
-    txHash:            claim.txHash,
-    verdict:           result.verdict,
-    truthScore:        result.truthScore,
+    agentId:              claim.agentId,
+    txHash:               claim.txHash,
+    verdict:              result.verdict,
+    truthScore:           result.truthScore,
     result,
     evidenceUri,
     requestHash,
     validationTxHash,
     feedbackTxHash,
+    scoreboardTxHash,
+    attestationSignature,
   })
   updateAgentScore(claim.agentId, score)
 
   console.log(`[ingest] persisted. validationTx=${validationTxHash}  feedbackTx=${feedbackTxHash}`)
 
-  return { verificationResult: result, requestHash, validationTxHash, feedbackTxHash, score, evidenceUri }
+  return { verificationResult: result, requestHash, validationTxHash, feedbackTxHash, score, evidenceUri, scoreboardTxHash, attestationSignature }
 }
