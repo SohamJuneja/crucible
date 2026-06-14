@@ -1,0 +1,6 @@
+{
+  "name": "@crucible/contracts",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Crucible on-chain contracts: ValidationRegistry, CrucibleScoreboard, DisputeManager, DelegationVault"
+}
