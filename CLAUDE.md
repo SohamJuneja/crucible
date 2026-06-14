@@ -99,14 +99,11 @@ guaranteed signatures.**
 ### IdentityRegistry (ERC-721 agent identity)
 - `register(...)` → mints an agent NFT, returns `agentId` (uint256). Sets `agentURI` (tokenURI)
   to a registration JSON (IPFS/HTTPS).
-- `setAgentURI(agentId, uri)` → update the registration file pointer.
+- `setAgentURI(agentId, newURI)` → update the registration file pointer.
 - `tokenURI(agentId)`, `getAgentWallet(agentId)`, `getMetadata/setMetadata(agentId, key, value)`.
 
 ### ReputationRegistry (trust signals) — this is where Crucible posts scores
-- `giveFeedback(...)` → records feedback for an `agentId`. Feedback `value` is an `int128` with
-  `valueDecimals` (uint8), e.g. value=9977, valueDecimals=2 → 99.77. Carries `tag1`/`tag2` and an
-  optional off-chain `feedbackURI` + hash. **Self-feedback is blocked** — Crucible is an external
-  client, which is exactly the intended caller. Crucible's wallet is the "client" giving feedback.
+- `giveFeedback(uint256 agentId, int128 value, uint8 valueDecimals, string tag1, string tag2, string endpoint, string feedbackURI, bytes32 feedbackHash)` → records feedback for an `agentId`. Feedback `value` is an `int128` with `valueDecimals` (uint8), e.g. value=9977, valueDecimals=2 → 99.77. Carries `tag1`/`tag2`, an `endpoint` string (pass `""` when unused), and an optional off-chain `feedbackURI` + hash. **Self-feedback is blocked** — Crucible is an external client, which is exactly the intended caller. Crucible's wallet is the "client" giving feedback.
 - `getSummary(agentId, clientAddresses, tag1, tag2)` → `(count, summaryValue, summaryValueDecimals)`.
   NOTE: `clientAddresses` must be non-empty (Sybil protection) — pass Crucible's verifier address.
 - `readAllFeedback(agentId, clientAddresses, tag1, tag2, includeRevoked)`.
