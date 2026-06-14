@@ -12,7 +12,8 @@
     "test": "turbo run test",
     "check:connection": "tsx scripts/check-connection.ts",
     "deploy:validation": "tsx scripts/deploy-validation.ts",
-    "register:agent": "tsx scripts/register-agent.ts"
+    "register:agent": "tsx scripts/register-agent.ts",
+    "make:fixtures": "tsx scripts/make-fixtures.ts"
   },
   "devDependencies": {
     "dotenv": "^16.4.7",

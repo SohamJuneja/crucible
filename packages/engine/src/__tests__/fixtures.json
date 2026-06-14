@@ -1,0 +1,15 @@
+{
+  "chainId": 5003,
+  "agentAddress": "0x2010834D1aB47a121B926790F47f6947b4a8e890",
+  "tokenA": "0x96329c3b644851692e4af18e8ec029ca6db4e35b",
+  "tokenB": "0xfa6b6299127b64dcded5f33e473b4714430d87aa",
+  "dex": "0x651b8475b98fb6b19ed57e34bcb5a63481375741",
+  "swapRate": "2",
+  "honestSwap": {
+    "txHash": "0x8c3c8dd7b998b71e75d8f0b2fde294c47fdd657af2ca06126383252093ce227a",
+    "amountIn": "10000000000000000000",
+    "amountOut": "20000000000000000000",
+    "tokenIn": "0x96329c3b644851692e4af18e8ec029ca6db4e35b",
+    "tokenOut": "0xfa6b6299127b64dcded5f33e473b4714430d87aa"
+  }
+}

@@ -8,3 +8,4 @@ export {
   identityRegistryAbi,
   reputationRegistryAbi,
 } from './contracts.js'
+export type { AgentClaim, Verdict, VerificationResult } from './types.js'
