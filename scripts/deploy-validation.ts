@@ -9,7 +9,7 @@ import fs from 'fs'
 import path from 'path'
 import { createPublicClient, http } from 'viem'
 import { mantleSepoliaTestnet } from 'viem/chains'
-import { getWalletClient } from '../packages/core/src/chain'
+import { getWalletClient } from '@crucible/core'
 
 // solc has no TS types; tsx/esbuild handles the CJS import fine at runtime
 // eslint-disable-next-line @typescript-eslint/no-require-imports

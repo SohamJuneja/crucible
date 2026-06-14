@@ -1,5 +1,5 @@
 {
-  "name": "@crucible/engine",
+  "name": "@crucible/scoring",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -14,8 +14,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
-    "@crucible/core": "*",
-    "viem": "^2.21.51"
+    "@crucible/core": "*"
   },
   "devDependencies": {
     "vitest": "^2.0.0",

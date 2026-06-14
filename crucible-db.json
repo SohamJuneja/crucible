@@ -1,0 +1,60 @@
+{
+  "agents": {
+    "173": {
+      "walletAddress": "0x3A3ff96Ae2FA81327E8Cb6537E87D08662bcBD6F",
+      "score": 92.5,
+      "updatedAt": 1781399642
+    },
+    "174": {
+      "walletAddress": "0x9BE160175B9fDdD9588B9e2da19CF0A509C7A8Ab",
+      "score": 92.5,
+      "updatedAt": 1781399802
+    },
+    "175": {
+      "walletAddress": "0x6FC8F6f17878758562Aa50d82Dc5dc07630782ac",
+      "score": 92.5,
+      "updatedAt": 1781400030
+    }
+  },
+  "verifications": [
+    {
+      "id": 1,
+      "agentId": "173",
+      "txHash": "0x707a44aa7fb7bc3bca9cad5b5eff7cee9991b6b09f378bbf2e7adda796f8bcf5",
+      "verdict": "VERIFIED",
+      "truthScore": 1,
+      "resultJson": "{\"claim\":{\"agentId\":\"173\",\"agentAddress\":\"0x3A3ff96Ae2FA81327E8Cb6537E87D08662bcBD6F\",\"action\":\"swap\",\"txHash\":\"0x707a44aa7fb7bc3bca9cad5b5eff7cee9991b6b09f378bbf2e7adda796f8bcf5\",\"params\":{\"tokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"tokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"amountIn\":\"5000000000000000000\",\"amountOut\":\"10000000000000000000\"},\"timestamp\":\"2026-06-14T01:13:48.489Z\"},\"verdict\":\"VERIFIED\",\"truthScore\":1,\"derived\":{\"txExists\":true,\"txSuccess\":true,\"actualTokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"actualTokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"actualAmountIn\":\"5000000000000000000\",\"actualAmountOut\":\"10000000000000000000\"},\"reasons\":[]}",
+      "evidenceUri": "ipfs://QmQbLWwwrjomRKU5ZJ3eKccBAcPhTQoTCY5MrY6bNRjkm9",
+      "requestHash": "0x710c80080e2c5638b0bd894d913e80b8b5570bc8e716426dd70d950755618cf0",
+      "validationTxHash": "0x59c2f0b235ddad3b44d7ac85ccc14e8016903ecd3eb465c097516d505ca4cc33",
+      "feedbackTxHash": "0x5b5d30ae69d5ef3c228beb8312bda74940e33d645bd340cc2f99aae9c9ca5b21",
+      "createdAt": 1781399642
+    },
+    {
+      "id": 2,
+      "agentId": "174",
+      "txHash": "0x29e34950944d4988cfbd4d51e665154976923ca6fb685020073fbed5cd8c89cb",
+      "verdict": "VERIFIED",
+      "truthScore": 1,
+      "resultJson": "{\"claim\":{\"agentId\":\"174\",\"agentAddress\":\"0x9BE160175B9fDdD9588B9e2da19CF0A509C7A8Ab\",\"action\":\"swap\",\"txHash\":\"0x29e34950944d4988cfbd4d51e665154976923ca6fb685020073fbed5cd8c89cb\",\"params\":{\"tokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"tokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"amountIn\":\"5000000000000000000\",\"amountOut\":\"10000000000000000000\"},\"timestamp\":\"2026-06-14T01:16:27.954Z\"},\"verdict\":\"VERIFIED\",\"truthScore\":1,\"derived\":{\"txExists\":true,\"txSuccess\":true,\"actualTokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"actualTokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"actualAmountIn\":\"5000000000000000000\",\"actualAmountOut\":\"10000000000000000000\"},\"reasons\":[]}",
+      "evidenceUri": "ipfs://QmRAbBH1a2cVuJwM1rcSdJ2GpbLi8xW7oKxYAc6QzEHTGn",
+      "requestHash": "0x7b6dc6274d795d14c1f3f19beb6d21bf4d0b66329e3f9f991e6fe6c2eb146de4",
+      "validationTxHash": "0x008d41c012f984ab968e97b7489debbe57dd1b4755f1da21a356b222c6e4ed7e",
+      "feedbackTxHash": "0xc2c502998e1f5df4b1174b4ecaacdf8670d55bf3c1fc256eb18e265858f99e34",
+      "createdAt": 1781399802
+    },
+    {
+      "id": 3,
+      "agentId": "175",
+      "txHash": "0x14bbb6733d4eb89f9cb358d837c4e89c6773a938458de9453c84afc57e022432",
+      "verdict": "VERIFIED",
+      "truthScore": 1,
+      "resultJson": "{\"claim\":{\"agentId\":\"175\",\"agentAddress\":\"0x6FC8F6f17878758562Aa50d82Dc5dc07630782ac\",\"action\":\"swap\",\"txHash\":\"0x14bbb6733d4eb89f9cb358d837c4e89c6773a938458de9453c84afc57e022432\",\"params\":{\"tokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"tokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"amountIn\":\"5000000000000000000\",\"amountOut\":\"10000000000000000000\"},\"timestamp\":\"2026-06-14T01:20:07.730Z\"},\"verdict\":\"VERIFIED\",\"truthScore\":1,\"derived\":{\"txExists\":true,\"txSuccess\":true,\"actualTokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"actualTokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"actualAmountIn\":\"5000000000000000000\",\"actualAmountOut\":\"10000000000000000000\"},\"reasons\":[]}",
+      "evidenceUri": "ipfs://QmNvdmPdxPkfYH1GodzEjJ6HfcLx2Z4gr4de3RakU5yzww",
+      "requestHash": "0x2ad3a3ac3f2c558a6fe77b263f9c978ddaf7045c97f74a9a7db4b344192f9bc0",
+      "validationTxHash": "0x8da9c7c5eae4b4617b558bdd960b3cd01111caa33649647f57f77643572f807d",
+      "feedbackTxHash": "0xf12fa8731262c068f7b8087730d93c33e022190c10b7f31943175c06260a6444",
+      "createdAt": 1781400030
+    }
+  ]
+}

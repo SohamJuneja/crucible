@@ -1,5 +1,5 @@
 {
-  "name": "@crucible/engine",
+  "name": "@crucible/indexer",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -10,15 +10,15 @@
     "./*": "./src/*.ts"
   },
   "scripts": {
-    "test": "vitest run",
     "typecheck": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
-    "@crucible/core": "*",
-    "viem": "^2.21.51"
+    "@crucible/core":    "*",
+    "@crucible/engine":  "*",
+    "@crucible/scoring": "*",
+    "viem":              "^2.21.51"
   },
   "devDependencies": {
-    "vitest": "^2.0.0",
     "typescript": "^5.6.3"
   }
 }

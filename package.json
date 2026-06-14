@@ -13,7 +13,8 @@
     "check:connection": "tsx scripts/check-connection.ts",
     "deploy:validation": "tsx scripts/deploy-validation.ts",
     "register:agent": "tsx scripts/register-agent.ts",
-    "make:fixtures": "tsx scripts/make-fixtures.ts"
+    "make:fixtures": "tsx scripts/make-fixtures.ts",
+    "ingest:demo": "tsx scripts/ingest-demo.ts"
   },
   "devDependencies": {
     "dotenv": "^16.4.7",

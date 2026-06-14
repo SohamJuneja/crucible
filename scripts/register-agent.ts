@@ -9,11 +9,7 @@
  */
 import 'dotenv/config'
 import { decodeEventLog } from 'viem'
-import { publicClient, getWalletClient } from '../packages/core/src/chain'
-import {
-  IDENTITY_REGISTRY_ADDRESS,
-  identityRegistryAbi,
-} from '../packages/core/src/contracts'
+import { publicClient, getWalletClient, IDENTITY_REGISTRY_ADDRESS, identityRegistryAbi } from '@crucible/core'
 
 const AGENT_URI = 'https://crucible.local/agent.json'
 

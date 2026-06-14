@@ -12,7 +12,7 @@ import fs from 'fs'
 import path from 'path'
 import { createPublicClient, http } from 'viem'
 import { mantleSepoliaTestnet } from 'viem/chains'
-import { getWalletClient } from '../packages/core/src/chain'
+import { getWalletClient } from '@crucible/core'
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const solc = require('solc') as { compile(input: string): string }
