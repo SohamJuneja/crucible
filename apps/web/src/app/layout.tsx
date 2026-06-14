@@ -22,6 +22,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 Other agents tell you what they did. Crucible proves whether it&apos;s true.
               </p>
             </div>
+            <nav className="hidden md:flex items-center gap-1">
+              <a href="/"         className="text-sm text-slate-400 hover:text-white px-3 py-1.5 rounded-lg hover:bg-slate-800 transition-colors">Arena</a>
+              <a href="/delegate" className="text-sm text-slate-400 hover:text-white px-3 py-1.5 rounded-lg hover:bg-slate-800 transition-colors">Delegate</a>
+            </nav>
             <div className="ml-auto flex items-center gap-3">
               <span className="text-xs text-slate-500 font-mono">Mantle Sepolia · Chain 5003</span>
               <span className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-full bg-green-950 text-green-400 border border-green-900">

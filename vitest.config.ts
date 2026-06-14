@@ -5,7 +5,8 @@ import { defineConfig } from 'vitest/config'
 // to Mantle Sepolia or Mantle mainnet.
 export default defineConfig({
   test: {
-    testTimeout: 60_000,
-    hookTimeout: 30_000,
+    testTimeout:     60_000,
+    hookTimeout:     60_000,
+    fileParallelism: false,  // prevent nonce races when multiple test files share a wallet key
   },
 })

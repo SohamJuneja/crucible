@@ -18,6 +18,10 @@
     "seed": "tsx scripts/seed-agents/run-all.ts",
     "leaderboard":    "tsx scripts/leaderboard.ts",
     "deploy:suite":   "tsx scripts/deploy-contracts-suite.ts",
+    "deploy:vault":   "tsx scripts/deploy-vault.ts",
+    "delegate:demo":  "tsx scripts/delegation-demo.ts",
+    "deploy:dispute": "tsx scripts/deploy-dispute.ts",
+    "dispute:demo":   "tsx scripts/dispute-demo.ts",
     "firewall:demo":  "tsx scripts/firewall-demo.ts",
     "sdk:example": "tsx scripts/sdk-example.ts",
     "web": "npm run dev -w @crucible/web"
