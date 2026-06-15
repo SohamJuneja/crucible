@@ -11,7 +11,7 @@
 [![Track](https://img.shields.io/badge/Track-AI%20DevTools-purple)]()
 [![License](https://img.shields.io/badge/License-MIT-green)]()
 
-🌐 **Live Demo:** `<add Vercel URL>`  ·  🎥 **Video:** `<add video URL>`  ·  🏆 **Turing Test Hackathon 2026 — AI Awakening**
+🌐 **Live Demo:** [crucible-web-phi.vercel.app](https://crucible-web-phi.vercel.app)  ·  🎥 **Video:** `<add video URL>`  ·  🏆 **Turing Test Hackathon 2026 — AI Awakening**
 
 </div>
 
@@ -73,6 +73,7 @@ Around that core, Crucible is a full platform: a multi-protocol verification eng
 | 🌐 **Multi-Protocol** | Verifies real Merchant Moe, FusionX, Agni, Lendle activity | Works on the actual Mantle DeFi ecosystem, not a sandbox. |
 | 🧰 **SDK** | `registerAgent` + `submitClaim` in <20 lines | Any agent (including competitors) integrates in minutes. |
 | 📊 **The Arena** | Live leaderboard, per-claim receipts, verification feed, Human-vs-AI | Radical transparency, made visible. |
+| 🔔 **Alert Bot** | Telegram + Discord alerts on verdicts, caught lies, firewall blocks & disputes | On-chain anomaly alerts pushed where teams already watch (AI Alpha & Data). |
 
 ## 4. How It Works
 
@@ -129,7 +130,7 @@ Crucible is a TypeScript monorepo of cooperating packages plus a Next.js front e
 
 **Design principles:**
 
-- **Determinism over vibes.** The verdict is pure on-chain math. The LLM is used *only* to write human-readable explanations — it never decides a verdict.
+- **Determinism over vibes.** The verdict is pure on-chain math. The LLM is used *only* to write human-readable explanations (pluggable provider: Tencent Cloud Hunyuan / OpenAI / DeepSeek) — it never decides a verdict.
 - **Standards-native.** Crucible uses Mantle's *canonical* ERC-8004 deployment, not a hand-rolled registry. We implement the missing piece of the standard — the validator.
 - **Defense in depth.** Reputation guardrails are enforced on-chain (DelegationVault reads the scoreboard), not just in TypeScript.
 - **Real, not mocked.** Verdicts come from real chain reads. The verification engine is proven against real Mantle *mainnet* transactions for Merchant Moe, FusionX, Agni, and Lendle.
@@ -205,8 +206,10 @@ ERC-8004 ("Trustless Agents") defines three registries: **Identity**, **Reputati
 | CrucibleScoreboard | `0x6bd5079e7bfe565eace7b374cb195c31e214247a` |
 | CrucibleAttestation | `0xb1b162c719c06d950933a75ad810412d166821ea` |
 | DelegationVault | `0xabf24c1356ec094858aba00c65ca258ddc2ee1cb` |
-| DisputeManager | `<see artifacts/deployed.json>` |
+| DisputeManager | `0x97ad896658cb95fbd05cb27e9645406e2626b7cf` |
 | MockDEX (demo harness) | `0x651b8475b98fb6b19ed57e34bcb5a63481375741` |
+
+*All contracts are **verified** on Mantlescan (green ✓, Exact Match).*
 
 **Canonical ERC-8004 (already on Mantle, used by Crucible):**
 
@@ -226,6 +229,8 @@ ERC-8004 ("Trustless Agents") defines three registries: **Identity**, **Reputati
 | Frontend | Next.js 14 (App Router) + Tailwind CSS |
 | Identity/Reputation | Canonical ERC-8004 registries on Mantle |
 | Evidence storage | IPFS (Pinata) |
+| LLM (explanations only) | Pluggable — Tencent Cloud Hunyuan / OpenAI / DeepSeek (never decides a verdict) |
+| Alerts | Telegram Bot API + Discord webhooks |
 | Network | Mantle Sepolia (5003); decoders verified vs Mantle mainnet (5000) |
 
 ## 14. Repository Structure
@@ -239,6 +244,7 @@ packages/
   indexer     ingest pipeline + persistence
   contracts   ValidationRegistry, Scoreboard, Attestation, DelegationVault, DisputeManager
   sdk         CrucibleClient (register + submitClaim)
+  bot         Telegram + Discord alert bot
 apps/
   web         The Arena (Next.js)
 scripts/      deploy + seed-agents + demos
@@ -264,6 +270,7 @@ npm run leaderboard     # reputation ranking (liar hard-capped at 35)
 npm run firewall:demo   # firewall BLOCKs a drain + unlimited approval pre-execution
 npm run delegate:demo   # capital flows to the honest agent; reverts for the liar
 npm run dispute:demo    # stake-to-challenge a verdict; bond slashed on upheld
+npm run bot:demo        # push verdict / caught-lie / firewall / dispute alerts to Telegram + Discord
 npm run web             # The Arena → http://localhost:3000
 ```
 
@@ -298,7 +305,7 @@ console.log(result.verdict)   // 'VERIFIED' | 'EXAGGERATED' | 'FALSE_CLAIM'
 - Decentralized jury for the dispute protocol (replace single-arbiter resolution).
 - Multi-chain Crucible (verify agents across L2s, portable ERC-8004 identity).
 - "Verified by Crucible" embeddable reputation badge + public API.
-- Telegram/Discord alerts for caught lies, firewall blocks, and leaderboard moves.
+- Live verdict explanations via Tencent Cloud Hunyuan (integration is pluggable and ready).
 - Mainnet deployment + backtest-seeded historical reputation.
 
 ## 20. License
