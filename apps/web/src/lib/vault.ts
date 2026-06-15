@@ -1,27 +1,8 @@
 /**
  * Server-side helpers for DelegationVault metadata.
- * Reads artifacts/deployed.json — safe to call from Server Components.
+ * Reads from the committed snapshot bundle — safe to call from Server Components.
  */
-import fs from 'fs'
-import path from 'path'
-
-interface VaultEntry {
-  address:           string
-  minScore:          number
-  performanceFeeBps: number
-}
-
-interface DeployedJson {
-  DelegationVault?: VaultEntry
-}
-
-function findArtifacts(): string {
-  const candidates = [
-    path.resolve(process.cwd(), 'artifacts/deployed.json'),
-    path.resolve(process.cwd(), '..', '..', 'artifacts/deployed.json'),
-  ]
-  return candidates.find(fs.existsSync) ?? candidates[0]
-}
+import snapshot from '../../data/snapshot.json'
 
 export interface DelegationMeta {
   vaultAddress:      string
@@ -29,15 +10,10 @@ export interface DelegationMeta {
   performanceFeeBps: number   // e.g. 1000 = 10 %
 }
 
-export function getDelegationMeta(): DelegationMeta | null {
-  const p = findArtifacts()
-  if (!fs.existsSync(p)) return null
-  const json = JSON.parse(fs.readFileSync(p, 'utf8')) as DeployedJson
-  const vault = json.DelegationVault
-  if (!vault) return null
+export function getDelegationMeta(): DelegationMeta {
   return {
-    vaultAddress:      vault.address,
-    minScore:          vault.minScore,
-    performanceFeeBps: vault.performanceFeeBps,
+    vaultAddress:      snapshot.vault.address,
+    minScore:          snapshot.vault.minScore,
+    performanceFeeBps: snapshot.vault.performanceFeeBps,
   }
 }

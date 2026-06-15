@@ -1,0 +1,164 @@
+{
+  "nameMap": {
+    "187": "honest-bot",
+    "188": "mediocre-bot",
+    "189": "liar-bot",
+    "201": "alice.eth",
+    "202": "bob.trader"
+  },
+  "cohortMap": {
+    "201": "human",
+    "202": "human"
+  },
+  "vault": {
+    "address": "0xabf24c1356ec094858aba00c65ca258ddc2ee1cb",
+    "minScore": 6000,
+    "performanceFeeBps": 1000
+  },
+  "agents": {
+    "187": {
+      "walletAddress": "0x4ff629bBE4d62f678782dBcC858634e105f1540E",
+      "score": 92.5,
+      "updatedAt": 1781434964
+    },
+    "188": {
+      "walletAddress": "0xa838310da5ad30d440Dd6D74332C1a7614723d43",
+      "score": 59.5,
+      "updatedAt": 1781435004
+    },
+    "189": {
+      "walletAddress": "0xAb7E7743cA7e56480f9CD695FD9Ba101cdFA250f",
+      "score": 72.3329325083414,
+      "updatedAt": 1781435100
+    },
+    "201": {
+      "walletAddress": "0xA1cE12345678ABCDef0123456789a1ceDEADBEEF",
+      "score": 100.0,
+      "updatedAt": 1781440680
+    },
+    "202": {
+      "walletAddress": "0xB0b7cAfe12345678ABCDEF0123456789B0b7cafE",
+      "score": 72.0,
+      "updatedAt": 1781441640
+    }
+  },
+  "verifications": [
+    {
+      "id": 4,
+      "agentId": "187",
+      "txHash": "0x06c1da389ce302ce8d6ccf49281eee94c652fe34d3871ccd1c34d13615cb981a",
+      "verdict": "VERIFIED",
+      "truthScore": 1,
+      "resultJson": "{\"claim\":{\"agentId\":\"187\",\"agentAddress\":\"0x4ff629bBE4d62f678782dBcC858634e105f1540E\",\"action\":\"swap\",\"txHash\":\"0x06c1da389ce302ce8d6ccf49281eee94c652fe34d3871ccd1c34d13615cb981a\",\"params\":{\"tokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"tokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"amountIn\":\"100000000000000000\",\"amountOut\":\"200000000000000000\"},\"timestamp\":\"2026-06-14T11:02:30.288Z\"},\"verdict\":\"VERIFIED\",\"truthScore\":1,\"derived\":{\"txExists\":true,\"txSuccess\":true,\"actualTokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"actualTokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"actualAmountIn\":\"100000000000000000\",\"actualAmountOut\":\"200000000000000000\"},\"reasons\":[]}",
+      "evidenceUri": "ipfs://QmQMNrg673qLBdtyZ44gNtcG91VET9ymm7bjvDwxo3tGxT",
+      "requestHash": "0x7f1e53b16d0436d1bf6bb41e83edcb5a9195ab1be10e47822c5d7d2e3d32384b",
+      "validationTxHash": "0xf9ab483f3fcd8d31b72646d8dbb37ef2a4f082f0e2035ae72daad322824002e0",
+      "feedbackTxHash": "0xf472877e26e569977e0917423074af7e100d787806f8a1d62f5a3c0fcebcedcf",
+      "createdAt": 1781434964
+    },
+    {
+      "id": 5,
+      "agentId": "188",
+      "txHash": "0x08d4dc867be6022582e3b4f04d5092b1237d0bbc481c0a6b8d8bbab13ff5b158",
+      "verdict": "EXAGGERATED",
+      "truthScore": 0.8,
+      "resultJson": "{\"claim\":{\"agentId\":\"188\",\"agentAddress\":\"0xa838310da5ad30d440Dd6D74332C1a7614723d43\",\"action\":\"swap\",\"txHash\":\"0x08d4dc867be6022582e3b4f04d5092b1237d0bbc481c0a6b8d8bbab13ff5b158\",\"params\":{\"tokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"tokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"amountIn\":\"100000000000000000\",\"amountOut\":\"250000000000000000\"},\"timestamp\":\"2026-06-14T11:03:08.110Z\"},\"verdict\":\"EXAGGERATED\",\"truthScore\":0.8,\"derived\":{\"txExists\":true,\"txSuccess\":true,\"actualTokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"actualTokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"actualAmountIn\":\"100000000000000000\",\"actualAmountOut\":\"200000000000000000\"},\"reasons\":[\"amountOut_claimed_20.0pct_above_actual:claimed=250000000000000000 actual=200000000000000000\"]}",
+      "evidenceUri": "ipfs://QmNNsqtzkp45DZ6aukAM3HULUY6modHmCtKhWXztxjJDGq",
+      "requestHash": "0xde483bdb47b447a1496cab70ac0b19448a5927f7c2df6a7948ffa13e4cf0334d",
+      "validationTxHash": "0x93c89383c7d1b10d59044bdde291f6270e8b8da0e89957c3831f25437c2da9a1",
+      "feedbackTxHash": "0xf9aa0589000c8492cb0bd64eab6c1782c7babbb866e50f0506c50ef9d29bd1f8",
+      "createdAt": 1781435004
+    },
+    {
+      "id": 6,
+      "agentId": "189",
+      "txHash": "0x29b10dae8cb11adf4cccddb514a550b8952c3ed8bd40b5798afbfdbc28a73b55",
+      "verdict": "VERIFIED",
+      "truthScore": 1,
+      "resultJson": "{\"claim\":{\"agentId\":\"189\",\"agentAddress\":\"0xAb7E7743cA7e56480f9CD695FD9Ba101cdFA250f\",\"action\":\"swap\",\"txHash\":\"0x29b10dae8cb11adf4cccddb514a550b8952c3ed8bd40b5798afbfdbc28a73b55\",\"params\":{\"tokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"tokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"amountIn\":\"100000000000000000\",\"amountOut\":\"200000000000000000\"},\"timestamp\":\"2026-06-14T11:03:52.719Z\"},\"verdict\":\"VERIFIED\",\"truthScore\":1,\"derived\":{\"txExists\":true,\"txSuccess\":true,\"actualTokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"actualTokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"actualAmountIn\":\"100000000000000000\",\"actualAmountOut\":\"200000000000000000\"},\"reasons\":[]}",
+      "evidenceUri": "ipfs://QmSrwNkFFEtkYGeTChEU75VkTxNoSxR13G9vw1wup415zt",
+      "requestHash": "0x1c45e3d4ba95363f7bebf8479bfbb6e91b43d4471ba9e0d87410567614f21b3b",
+      "validationTxHash": "0x05d089d5f8d9b5603a89a2bdaae17b3f2c31e012d1f4701091c81f655426f7fa",
+      "feedbackTxHash": "0x56d810eaa6525a8ceed6ad809748dfef695e74d36b75b64a211c1883f75f9e56",
+      "createdAt": 1781435050
+    },
+    {
+      "id": 7,
+      "agentId": "189",
+      "txHash": "0x0f2c888efaf86016a07a787cd1b5e011c221ebaed2d513f27fd433acca48ca07",
+      "verdict": "VERIFIED",
+      "truthScore": 1,
+      "resultJson": "{\"claim\":{\"agentId\":\"189\",\"agentAddress\":\"0xAb7E7743cA7e56480f9CD695FD9Ba101cdFA250f\",\"action\":\"swap\",\"txHash\":\"0x0f2c888efaf86016a07a787cd1b5e011c221ebaed2d513f27fd433acca48ca07\",\"params\":{\"tokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"tokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"amountIn\":\"100000000000000000\",\"amountOut\":\"200000000000000000\"},\"timestamp\":\"2026-06-14T11:04:27.476Z\"},\"verdict\":\"VERIFIED\",\"truthScore\":1,\"derived\":{\"txExists\":true,\"txSuccess\":true,\"actualTokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"actualTokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"actualAmountIn\":\"100000000000000000\",\"actualAmountOut\":\"200000000000000000\"},\"reasons\":[]}",
+      "evidenceUri": "ipfs://Qme4GTRsyTgJFkLYupaqsT7TAUvn18JRkZdhRTJuSowc7S",
+      "requestHash": "0x2b67848ab0c1327af3ffda773dea8dd78deb9aa2980eece98bfda116a7ced504",
+      "validationTxHash": "0xb5e0ba294ca5b2939e16bd5ea8ad515b8f75467f5d913eba409a900122f9af29",
+      "feedbackTxHash": "0x9983eaec11d24b4d11175371b11aec1d857a2656a42ea34ce8f5a30d1157337f",
+      "createdAt": 1781435083
+    },
+    {
+      "id": 8,
+      "agentId": "189",
+      "txHash": "0x0f2c888efaf86016a07a787cd1b5e011c221ebaed2d513f27fd433acca48ca07",
+      "verdict": "FALSE_CLAIM",
+      "truthScore": 0,
+      "resultJson": "{\"claim\":{\"agentId\":\"189\",\"agentAddress\":\"0xAb7E7743cA7e56480f9CD695FD9Ba101cdFA250f\",\"action\":\"swap\",\"txHash\":\"0x0f2c888efaf86016a07a787cd1b5e011c221ebaed2d513f27fd433acca48ca07\",\"params\":{\"tokenIn\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"tokenOut\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"amountIn\":\"200000000000000000\",\"amountOut\":\"100000000000000000\"},\"timestamp\":\"2026-06-14T11:04:43.822Z\"},\"verdict\":\"FALSE_CLAIM\",\"truthScore\":0,\"derived\":{\"txExists\":true,\"txSuccess\":true,\"actualTokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"actualTokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"actualAmountIn\":\"100000000000000000\",\"actualAmountOut\":\"200000000000000000\"},\"reasons\":[\"wrong_tokenIn:claimed=0xfa6b6299127b64dcded5f33e473b4714430d87aa actual=0x96329c3b644851692e4af18e8ec029ca6db4e35b\"]}",
+      "evidenceUri": "ipfs://QmabsM7VUFTLbUi85DYFqyXjenCLujRgpCCVs8334cDmve",
+      "requestHash": "0x4f917c56b8cf121c40bf72644e27d1b6d3faea847d432efec77df79f8216d763",
+      "validationTxHash": "0xc2941e984ab8ed178fda5cf7291c544643f69645a0b33fe944ad4f20e258ba72",
+      "feedbackTxHash": "0x71590ae411f795896a833e8c997c29376dab6117d30e6c07e994e8cdbbf767f3",
+      "createdAt": 1781435100
+    },
+    {
+      "id": 10,
+      "agentId": "201",
+      "txHash": "0xaaaa1111000000001111aaaa2222000000002222aaaa3333000000003333aaaa",
+      "verdict": "VERIFIED",
+      "truthScore": 1,
+      "resultJson": "{\"claim\":{\"agentId\":\"201\",\"agentAddress\":\"0xA1cE12345678ABCDef0123456789a1ceDEADBEEF\",\"action\":\"swap\",\"txHash\":\"0xaaaa1111000000001111aaaa2222000000002222aaaa3333000000003333aaaa\",\"params\":{\"tokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"tokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"amountIn\":\"500000000000000000\",\"amountOut\":\"1000000000000000000\"},\"timestamp\":\"2026-06-14T12:30:00.000Z\"},\"verdict\":\"VERIFIED\",\"truthScore\":1,\"derived\":{\"txExists\":true,\"txSuccess\":true,\"actualTokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"actualTokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"actualAmountIn\":\"500000000000000000\",\"actualAmountOut\":\"1000000000000000000\"},\"reasons\":[]}",
+      "evidenceUri": "ipfs://QmSnap201AliceV1CrucibleVerifiedSwapVerdictABCDE",
+      "requestHash": "0xeeee1111000000001111eeee2222000000002222eeee3333000000003333eeee",
+      "validationTxHash": "0xffff1111000000001111ffff2222000000002222ffff3333000000003333ffff",
+      "feedbackTxHash": "0x1111aaaa000000001111aaaa2222000000001111aaaa3333000000001111aaaa",
+      "createdAt": 1781440200
+    },
+    {
+      "id": 11,
+      "agentId": "201",
+      "txHash": "0xbbbb1111000000001111bbbb2222000000002222bbbb3333000000003333bbbb",
+      "verdict": "VERIFIED",
+      "truthScore": 1,
+      "resultJson": "{\"claim\":{\"agentId\":\"201\",\"agentAddress\":\"0xA1cE12345678ABCDef0123456789a1ceDEADBEEF\",\"action\":\"swap\",\"txHash\":\"0xbbbb1111000000001111bbbb2222000000002222bbbb3333000000003333bbbb\",\"params\":{\"tokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"tokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"amountIn\":\"300000000000000000\",\"amountOut\":\"600000000000000000\"},\"timestamp\":\"2026-06-14T12:38:00.000Z\"},\"verdict\":\"VERIFIED\",\"truthScore\":1,\"derived\":{\"txExists\":true,\"txSuccess\":true,\"actualTokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"actualTokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"actualAmountIn\":\"300000000000000000\",\"actualAmountOut\":\"600000000000000000\"},\"reasons\":[]}",
+      "evidenceUri": "ipfs://QmSnap201AliceV2CrucibleVerifiedSwapVerdictFGHIJ",
+      "requestHash": "0xeeee2222000000002222eeee3333000000003333eeee4444000000004444eeee",
+      "validationTxHash": "0xffff2222000000002222ffff3333000000003333ffff4444000000004444ffff",
+      "feedbackTxHash": "0x2222aaaa000000002222aaaa3333000000002222aaaa4444000000002222aaaa",
+      "createdAt": 1781440680
+    },
+    {
+      "id": 12,
+      "agentId": "202",
+      "txHash": "0xcccc1111000000001111cccc2222000000002222cccc3333000000003333cccc",
+      "verdict": "VERIFIED",
+      "truthScore": 1,
+      "resultJson": "{\"claim\":{\"agentId\":\"202\",\"agentAddress\":\"0xB0b7cAfe12345678ABCDEF0123456789B0b7cafE\",\"action\":\"swap\",\"txHash\":\"0xcccc1111000000001111cccc2222000000002222cccc3333000000003333cccc\",\"params\":{\"tokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"tokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"amountIn\":\"200000000000000000\",\"amountOut\":\"400000000000000000\"},\"timestamp\":\"2026-06-14T12:46:00.000Z\"},\"verdict\":\"VERIFIED\",\"truthScore\":1,\"derived\":{\"txExists\":true,\"txSuccess\":true,\"actualTokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"actualTokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"actualAmountIn\":\"200000000000000000\",\"actualAmountOut\":\"400000000000000000\"},\"reasons\":[]}",
+      "evidenceUri": "ipfs://QmSnap202BobV1CrucibleVerifiedSwapVerdictKLMNOP",
+      "requestHash": "0xeeee3333000000003333eeee4444000000004444eeee5555000000005555eeee",
+      "validationTxHash": "0xffff3333000000003333ffff4444000000004444ffff5555000000005555ffff",
+      "feedbackTxHash": "0x3333aaaa000000003333aaaa4444000000003333aaaa5555000000003333aaaa",
+      "createdAt": 1781441160
+    },
+    {
+      "id": 13,
+      "agentId": "202",
+      "txHash": "0xdddd1111000000001111dddd2222000000002222dddd3333000000003333dddd",
+      "verdict": "EXAGGERATED",
+      "truthScore": 0.8,
+      "resultJson": "{\"claim\":{\"agentId\":\"202\",\"agentAddress\":\"0xB0b7cAfe12345678ABCDEF0123456789B0b7cafE\",\"action\":\"swap\",\"txHash\":\"0xdddd1111000000001111dddd2222000000002222dddd3333000000003333dddd\",\"params\":{\"tokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"tokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"amountIn\":\"200000000000000000\",\"amountOut\":\"240000000000000000\"},\"timestamp\":\"2026-06-14T12:54:00.000Z\"},\"verdict\":\"EXAGGERATED\",\"truthScore\":0.8,\"derived\":{\"txExists\":true,\"txSuccess\":true,\"actualTokenIn\":\"0x96329c3b644851692e4af18e8ec029ca6db4e35b\",\"actualTokenOut\":\"0xfa6b6299127b64dcded5f33e473b4714430d87aa\",\"actualAmountIn\":\"200000000000000000\",\"actualAmountOut\":\"200000000000000000\"},\"reasons\":[\"amountOut_claimed_20.0pct_above_actual:claimed=240000000000000000 actual=200000000000000000\"]}",
+      "evidenceUri": "ipfs://QmSnap202BobV2CrucibleExaggeratedSwapVerdictQRST",
+      "requestHash": "0xeeee4444000000004444eeee5555000000005555eeee6666000000006666eeee",
+      "validationTxHash": "0xffff4444000000004444ffff5555000000005555ffff6666000000006666ffff",
+      "feedbackTxHash": "0x4444aaaa000000004444aaaa5555000000004444aaaa6666000000004444aaaa",
+      "createdAt": 1781441640
+    }
+  ]
+}

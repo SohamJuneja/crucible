@@ -1,23 +1,10 @@
 /**
- * Server-side data access — reads crucible-db.json and .seed-agents.json.
+ * Server-side data access — reads from the committed snapshot bundle.
  * All functions run only on the server (called from Server Components / route handlers).
  */
-import fs from 'fs'
-import path from 'path'
 import { computeScore } from '@crucible/scoring'
 import type { VerificationResult } from '@crucible/core'
-
-// ── Path resolution ────────────────────────────────────────────────────────────
-// Supports running `next dev` from apps/web (cwd = apps/web → ../.. = repo root)
-// or from repo root (cwd = repo root → . = repo root).
-
-function findFile(name: string): string {
-  const candidates = [
-    path.resolve(process.cwd(), name),               // from repo root
-    path.resolve(process.cwd(), '..', '..', name),   // from apps/web
-  ]
-  return candidates.find(fs.existsSync) ?? candidates[0]
-}
+import snapshot from '../../data/snapshot.json'
 
 // ── Raw store types (mirrors packages/indexer/src/db.ts) ──────────────────────
 
@@ -39,17 +26,6 @@ interface RawVerification {
   feedbackTxHash:   string | null
   createdAt:        number
 }
-
-interface SeedState {
-  [bot: string]: { privateKey: string; address: string; agentId: string | null }
-}
-
-// ── Cohort config ──────────────────────────────────────────────────────────────
-// Tags seed bot personas as 'human' so the Human vs AI panel shows both cohorts.
-// honest-bot → ai  |  mediocre-bot → human  |  liar-bot → human
-// (Dramatic demo: humans exaggerate/fabricate; AI is verified & dominant.)
-
-const HUMAN_BOT_NAMES = new Set(['mediocre-bot', 'liar-bot'])
 
 // ── Public types ───────────────────────────────────────────────────────────────
 
@@ -97,20 +73,14 @@ export interface ReceiptData {
 // ── Store loading ──────────────────────────────────────────────────────────────
 
 function loadStore(): RawStore {
-  const p = findFile('crucible-db.json')
-  if (!fs.existsSync(p)) return { agents: {}, verifications: [] }
-  return JSON.parse(fs.readFileSync(p, 'utf8')) as RawStore
+  return {
+    agents:        snapshot.agents        as unknown as RawStore['agents'],
+    verifications: snapshot.verifications as unknown as RawVerification[],
+  }
 }
 
 function loadNameMap(): Record<string, string> {
-  const p = findFile('.seed-agents.json')
-  if (!fs.existsSync(p)) return {}
-  const seed = JSON.parse(fs.readFileSync(p, 'utf8')) as SeedState
-  const map: Record<string, string> = {}
-  for (const [name, agent] of Object.entries(seed)) {
-    if (agent.agentId) map[agent.agentId] = name
-  }
-  return map
+  return snapshot.nameMap as Record<string, string>
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
@@ -127,7 +97,8 @@ function buildAgentData(
   nameMap: Record<string, string>,
 ): AgentData {
   const name   = nameMap[agentId] ?? `agent-${agentId}`
-  const cohort = HUMAN_BOT_NAMES.has(name) ? 'human' : 'ai'
+  const cohort: 'ai' | 'human' =
+    (snapshot.cohortMap as Record<string, string>)[agentId] === 'human' ? 'human' : 'ai'
 
   const results = verifs.map(parseResult).filter((r): r is VerificationResult => r !== null)
   const score   = computeScore(results)
@@ -238,9 +209,8 @@ export interface ScoreBreakdown {
 }
 
 export function getScoreBreakdown(agentId: string): ScoreBreakdown | null {
-  const store   = loadStore()
-  const nameMap = loadNameMap()
-  const verifs  = store.verifications.filter(v => v.agentId === agentId)
+  const store  = loadStore()
+  const verifs = store.verifications.filter(v => v.agentId === agentId)
   if (!verifs.length) return null
 
   const results = verifs.map(parseResult).filter((r): r is VerificationResult => r !== null)
@@ -298,9 +268,6 @@ export function getScoreBreakdown(agentId: string): ScoreBreakdown | null {
   const truthPts     = 30 * tfFraction
   const rawTotal     = riskReturn + winRatePts + consPts + truthPts
   const finalScore   = Math.max(0, Math.min(cap, rawTotal))
-
-  // suppress unused warning for nameMap
-  void nameMap
 
   return { riskReturn, winRate: winRatePts, consistency: consPts, truthfulness: truthPts, rawTotal, finalScore, cap, hasFalse, falseClaimCount }
 }
