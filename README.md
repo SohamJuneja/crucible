@@ -11,7 +11,7 @@
 [![Track](https://img.shields.io/badge/Track-AI%20DevTools-purple)]()
 [![License](https://img.shields.io/badge/License-MIT-green)]()
 
-🌐 **Live Demo:** [crucible-web-phi.vercel.app](https://crucible-web-phi.vercel.app)  ·  🎥 **Video:** `<add video URL>`  ·  🏆 **Turing Test Hackathon 2026 — AI Awakening**
+🌐 **Live Demo:** [crucible-web-phi.vercel.app](https://crucible-web-phi.vercel.app)  ·  🎥 **Video:** [youtu.be/co4Iew9T1mU](https://youtu.be/co4Iew9T1mU)  ·  🏆 **Turing Test Hackathon 2026 — AI Awakening**
 
 </div>
 
