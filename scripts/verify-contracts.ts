@@ -1,6 +1,6 @@
 /**
  * verify-contracts.ts — submits source verification for all Crucible contracts
- * via Etherscan API V2 (chainid=5003 → Mantle Sepolia).
+ * via Etherscan API V2.
  *
  * Reads ETHERSCAN_API_KEY from .env (falls back to MANTLESCAN_API_KEY).
  * Compiler settings must exactly match what the deploy scripts used:
@@ -9,8 +9,10 @@
  *   - evmVersion: cancun (solc 0.8.26 default)
  *
  * Usage:
- *   npm run verify:contracts             — submit + auto-poll all contracts
- *   npm run verify:contracts -- --check <guid>   — manually re-poll one guid
+ *   npm run verify:contracts                      — Sepolia (chainid 5003)
+ *   npm run verify:contracts -- --mainnet         — Mainnet (chainid 5000)
+ *   npm run verify:contracts -- --check <guid>    — re-poll one guid (Sepolia)
+ *   npm run verify:contracts -- --mainnet --check <guid>  — re-poll (mainnet)
  *
  * Throttled to 1200ms between submissions to stay under Etherscan's 3 req/sec limit.
  * After each submission the script auto-polls checkverifystatus every 5s until done.
@@ -20,16 +22,23 @@ import fs from 'fs'
 import path from 'path'
 import { encodeAbiParameters, parseAbiParameters } from 'viem'
 
+// ── Mode detection ───────────────────────────────────────────────────────────
+
+const IS_MAINNET   = process.argv.includes('--mainnet')
+const CHAIN_ID     = IS_MAINNET ? '5000' : '5003'
+const CHAIN_LABEL  = IS_MAINNET ? 'Mantle Mainnet' : 'Mantle Sepolia'
+
 // ── Config ──────────────────────────────────────────────────────────────────
 
 const API_URL      = 'https://api.etherscan.io/v2/api'
-const CHAIN_ID     = '5003'   // Mantle Sepolia — added to every V2 request
 const COMPILER_VER = 'v0.8.26+commit.8a97fa7a'
 const EVM_VERSION  = 'cancun'
 const OPT_RUNS     = 200
 
 const CONTRACTS_DIR = path.resolve(process.cwd(), 'packages/contracts/src')
-const ARTIFACTS     = path.resolve(process.cwd(), 'artifacts/deployed.json')
+const ARTIFACTS     = IS_MAINNET
+  ? path.resolve(process.cwd(), 'artifacts/deployed.mainnet.json')
+  : path.resolve(process.cwd(), 'artifacts/deployed.json')
 const FIXTURES      = path.resolve(process.cwd(), 'packages/engine/src/__tests__/fixtures.json')
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -155,17 +164,21 @@ async function main() {
     return
   }
 
+  const artifactPath = IS_MAINNET
+    ? 'artifacts/deployed.mainnet.json'
+    : 'artifacts/deployed.json'
   if (!fs.existsSync(ARTIFACTS)) {
-    throw new Error('artifacts/deployed.json not found')
+    throw new Error(`${artifactPath} not found`)
   }
   const deployed = JSON.parse(fs.readFileSync(ARTIFACTS, 'utf8')) as Record<string, { address: string }>
 
-  // fixtures.json holds MockERC20 + MockDEX addresses
-  const fixtures = fs.existsSync(FIXTURES)
+  // fixtures.json holds MockERC20 + MockDEX addresses (Sepolia testnet only)
+  const fixtures = !IS_MAINNET && fs.existsSync(FIXTURES)
     ? JSON.parse(fs.readFileSync(FIXTURES, 'utf8')) as { tokenA: string; tokenB: string; dex: string }
     : null
 
-  console.log('Crucible — contract verification via Etherscan API V2 (chainid=5003, Mantle Sepolia)')
+  console.log(`Crucible — contract verification via Etherscan API V2 (chainid=${CHAIN_ID}, ${CHAIN_LABEL})`)
+  console.log(`Artifacts: ${artifactPath}`)
   console.log(`Compiler : ${COMPILER_VER}`)
   console.log(`EVM      : ${EVM_VERSION}   Optimizer: enabled, ${OPT_RUNS} runs`)
   console.log(`Throttle : 1200ms between submissions  |  Polling every 5s per contract`)

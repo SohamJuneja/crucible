@@ -1,0 +1,41 @@
+{
+  "ValidationRegistry": {
+    "address": "0xfdce19da49bdd3869658a649cfcee01ae222727d",
+    "txHash": "0xa2a758b2474b74b7b0913a36c1e8dc1cc18b5086daf8faab0061036c3170600e",
+    "chainId": 5000,
+    "deployedAt": "2026-06-15T21:35:26.619Z"
+  },
+  "CrucibleScoreboard": {
+    "address": "0x470dc0286b9580cf6cc2af8be1ad0f162892c77d",
+    "txHash": "0x69a72e4675f18c2724917571127e4e91ec79c61e924e6b4e51e79e3ae5d6acfa",
+    "chainId": 5000,
+    "verifier": "0x12275Fd8F1116f2234364FeB65dC86e7e879f176",
+    "deployedAt": "2026-06-15T21:35:26.619Z"
+  },
+  "CrucibleAttestation": {
+    "address": "0x0d9e27bb57dbd79c1c787a54f4891d98183ce3a4",
+    "txHash": "0xac32ead6a36ad3fe8c1f7b82025e83655cdd8106072b4c7a278f604e641526aa",
+    "chainId": 5000,
+    "crucibleSigner": "0x12275Fd8F1116f2234364FeB65dC86e7e879f176",
+    "deployedAt": "2026-06-15T21:35:26.619Z"
+  },
+  "DelegationVault": {
+    "address": "0xdc8331e2b5272c7eafdf6de71c5f6d87669b77d5",
+    "txHash": "0x0a2ac9c9322aca822ef29a2f7b698c61cd048b66ce2f75b22c77fb8d4b78267f",
+    "chainId": 5000,
+    "scoreboard": "0x470dc0286b9580cf6cc2af8be1ad0f162892c77d",
+    "minScore": 6000,
+    "performanceFeeBps": 1000,
+    "deployedAt": "2026-06-15T21:35:26.619Z"
+  },
+  "DisputeManager": {
+    "address": "0xeab81a37d735730d1105784c94ad5dcef47dfa44",
+    "txHash": "0xc1fb2b38a675f8d96ee73024277ceafc24f06524942f4dec19c8a37abfc69953",
+    "chainId": 5000,
+    "arbiter": "0x12275Fd8F1116f2234364FeB65dC86e7e879f176",
+    "treasury": "0x12275Fd8F1116f2234364FeB65dC86e7e879f176",
+    "minBond": "5000000000000000",
+    "rewardBps": 5000,
+    "deployedAt": "2026-06-15T21:35:26.619Z"
+  }
+}

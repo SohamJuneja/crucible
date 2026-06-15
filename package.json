@@ -26,6 +26,7 @@
     "sdk:example": "tsx scripts/sdk-example.ts",
     "seed:extra":       "tsx scripts/seed-extra.ts",
     "snapshot":         "tsx scripts/export-snapshot.ts",
+    "deploy:mainnet":   "tsx scripts/deploy-mainnet.ts",
     "verify:contracts": "tsx scripts/verify-contracts.ts",
     "bot:demo":         "tsx scripts/bot-demo.ts",
     "web": "npm run dev -w @crucible/web"
