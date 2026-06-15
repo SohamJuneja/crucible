@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@crucible/engine":  "*",
     "@crucible/scoring": "*",
     "@crucible/core":    "*",
     "next":              "14.2.5",

@@ -72,6 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {/* Nav */}
             <nav className="hidden md:flex items-center gap-0.5 ml-1" aria-label="Main navigation">
               <NavLink href="/">Arena</NavLink>
+              <NavLink href="/verify">Verify</NavLink>
               <NavLink href="/delegate">Delegate</NavLink>
             </nav>
 

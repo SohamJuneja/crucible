@@ -511,6 +511,27 @@ export default function HomePage() {
       </section>
 
       <HumanVsAI />
+
+      {/* ── Verify teaser ────────────────────────────────────────────────── */}
+      <section
+        className="rounded-2xl border border-[#22D9C8]/18 bg-gradient-to-r from-teal-950/30 via-slate-900/60 to-slate-900/50 p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4"
+        aria-label="Verify a claim — feature teaser"
+      >
+        <div className="flex-1">
+          <h2 className="text-base font-bold text-white">🔬 Try the Verifier Live</h2>
+          <p className="text-sm text-slate-400 mt-1 max-w-lg">
+            Submit any Mantle mainnet tx. Crucible re-derives the truth from chain state in real time — no trust, no self-reporting.
+          </p>
+        </div>
+        <a
+          href="/verify"
+          className="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#22D9C8] text-[#0C1117] font-semibold text-sm hover:bg-teal-300 transition-colors"
+          aria-label="Go to Verify a Claim page"
+        >
+          Verify a Claim →
+        </a>
+      </section>
+
       <Leaderboard agents={agents} />
       <VerificationFeed receipts={feed} />
     </>
