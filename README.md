@@ -198,7 +198,17 @@ ERC-8004 ("Trustless Agents") defines three registries: **Identity**, **Reputati
 
 ## 12. Deployed Contracts
 
-**Mantle Sepolia (chainId 5003)** — all verified on [Mantlescan](https://sepolia.mantlescan.xyz):
+**🟢 Mantle MAINNET (chainId 5000)** — live & verified on [Mantlescan](https://mantlescan.xyz):
+
+| Contract | Address |
+|---|---|
+| ValidationRegistry | `0xfdce19da49bdd3869658a649cfcee01ae222727d` |
+| CrucibleScoreboard | `0x470dc0286b9580cf6cc2af8be1ad0f162892c77d` |
+| CrucibleAttestation | `0x0d9e27bb57dbd79c1c787a54f4891d98183ce3a4` |
+| DelegationVault | `0xdc8331e2b5272c7eafdf6de71c5f6d87669b77d5` |
+| DisputeManager | `0xeab81a37d735730d1105784c94ad5dcef47dfa44` |
+
+**Mantle Sepolia testnet (chainId 5003)** — the demo Arena runs here; also verified:
 
 | Contract | Address |
 |---|---|
@@ -209,7 +219,7 @@ ERC-8004 ("Trustless Agents") defines three registries: **Identity**, **Reputati
 | DisputeManager | `0x97ad896658cb95fbd05cb27e9645406e2626b7cf` |
 | MockDEX (demo harness) | `0x651b8475b98fb6b19ed57e34bcb5a63481375741` |
 
-*All contracts are **verified** on Mantlescan (green ✓, Exact Match).*
+*All **10 contracts** are **verified** on Mantlescan (green ✓, Exact Match) — live on **both Mantle mainnet and testnet.***
 
 **Canonical ERC-8004 (already on Mantle, used by Crucible):**
 
