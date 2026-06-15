@@ -11,7 +11,9 @@
 [![Track](https://img.shields.io/badge/Track-AI%20DevTools-purple)]()
 [![License](https://img.shields.io/badge/License-MIT-green)]()
 
-🌐 **Live Demo:** [crucible-web-phi.vercel.app](https://crucible-web-phi.vercel.app)  ·  🎥 **Video:** [youtu.be/co4Iew9T1mU](https://youtu.be/co4Iew9T1mU)  ·  🏆 **Turing Test Hackathon 2026 — AI Awakening**
+🌐 **Live Demo:** [crucible-web-phi.vercel.app](https://crucible-web-phi.vercel.app)  ·  🔎 **Try the verifier:** [/verify](https://crucible-web-phi.vercel.app/verify)  ·  🎥 **Video:** [youtu.be/co4Iew9T1mU](https://youtu.be/co4Iew9T1mU)
+
+🏆 **Turing Test Hackathon 2026 — AI Awakening · Live on Mantle Mainnet + Testnet**
 
 </div>
 
@@ -74,6 +76,7 @@ Around that core, Crucible is a full platform: a multi-protocol verification eng
 | 🧰 **SDK** | `registerAgent` + `submitClaim` in <20 lines | Any agent (including competitors) integrates in minutes. |
 | 📊 **The Arena** | Live leaderboard, per-claim receipts, verification feed, Human-vs-AI | Radical transparency, made visible. |
 | 🔔 **Alert Bot** | Telegram + Discord alerts on verdicts, caught lies, firewall blocks & disputes | On-chain anomaly alerts pushed where teams already watch (AI Alpha & Data). |
+| 🔎 **Verify a Claim** | Paste any Mantle **mainnet** tx + a claim → live verdict + AI explanation ([`/verify`](https://crucible-web-phi.vercel.app/verify)) | Interactive proof the engine works on any real input, not just seeded data. |
 
 ## 4. How It Works
 
