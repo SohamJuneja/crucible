@@ -24,6 +24,9 @@
     "dispute:demo":   "tsx scripts/dispute-demo.ts",
     "firewall:demo":  "tsx scripts/firewall-demo.ts",
     "sdk:example": "tsx scripts/sdk-example.ts",
+    "seed:extra":       "tsx scripts/seed-extra.ts",
+    "snapshot":         "tsx scripts/export-snapshot.ts",
+    "verify:contracts": "tsx scripts/verify-contracts.ts",
     "web": "npm run dev -w @crucible/web"
   },
   "devDependencies": {

@@ -285,16 +285,17 @@ export function getAgentReceipts(agentId: string): ReceiptData[] {
 }
 
 export function getHumanVsAI(): {
-  ai:    { count: number; avgScore: number; agents: AgentData[] }
-  human: { count: number; avgScore: number; agents: AgentData[] }
+  ai:    { count: number; avgScore: number; avgTruthfulness: number; agents: AgentData[] }
+  human: { count: number; avgScore: number; avgTruthfulness: number; agents: AgentData[] }
 } {
   const all = getLeaderboardData()
   const ai    = all.filter(a => a.cohort === 'ai')
   const human = all.filter(a => a.cohort === 'human')
-  const avg   = (arr: AgentData[]) => arr.length ? arr.reduce((s, a) => s + a.score, 0) / arr.length : 0
+  const avg      = (arr: AgentData[]) => arr.length ? arr.reduce((s, a) => s + a.score,       0) / arr.length : 0
+  const avgTruth = (arr: AgentData[]) => arr.length ? arr.reduce((s, a) => s + a.truthfulness, 0) / arr.length : 0
   return {
-    ai:    { count: ai.length,    avgScore: avg(ai),    agents: ai },
-    human: { count: human.length, avgScore: avg(human), agents: human },
+    ai:    { count: ai.length,    avgScore: avg(ai),    avgTruthfulness: avgTruth(ai),    agents: ai },
+    human: { count: human.length, avgScore: avg(human), avgTruthfulness: avgTruth(human), agents: human },
   }
 }
 

@@ -41,52 +41,52 @@ function scoreColor(s: number) {
 
 // ── Human vs AI panel ──────────────────────────────────────────────────────────
 
-function HumanVsAI() {
-  const { ai, human } = getHumanVsAI()
-  const lead    = ai.avgScore - human.avgScore
-  const maxScore = 100
+function CohortBar({ label, count, score, truth, color }: {
+  label: string; count: number; score: number; truth: number; color: 'blue' | 'amber'
+}) {
+  const barScore = color === 'blue' ? 'bg-blue-600' : 'bg-amber-600'
+  const barTruth = color === 'blue' ? 'bg-blue-400' : 'bg-amber-400'
   return (
-    <section className="rounded-xl border border-slate-800 bg-slate-900 p-6">
-      <h2 className="text-lg font-bold text-white mb-4 tracking-tight">⚔ AI vs Human Performance</h2>
-      <div className="space-y-4">
-        {/* AI bar */}
-        <div>
-          <div className="flex justify-between text-sm mb-1">
-            <span className="text-slate-300">🤖 AI Agents <span className="text-slate-500 text-xs">({ai.count})</span></span>
-            <span className={`font-bold font-mono ${scoreColor(ai.avgScore)}`}>
-              {ai.avgScore.toFixed(2)}
-            </span>
-          </div>
-          <div className="h-4 bg-slate-800 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-green-600 rounded-full transition-all"
-              style={{ width: `${(ai.avgScore / maxScore) * 100}%` }}
-            />
-          </div>
+    <div className="space-y-3">
+      <div className="flex items-center gap-2">
+        <span className="font-semibold text-slate-200 text-sm">{label}</span>
+        <span className="text-slate-500 text-xs">({count})</span>
+      </div>
+      <div>
+        <div className="flex justify-between text-xs text-slate-400 mb-1">
+          <span>Avg Score</span>
+          <span className={`font-mono font-bold ${scoreColor(score)}`}>{score.toFixed(1)}</span>
         </div>
-        {/* Human bar */}
-        <div>
-          <div className="flex justify-between text-sm mb-1">
-            <span className="text-slate-300">👤 Human Traders <span className="text-slate-500 text-xs">({human.count})</span></span>
-            <span className={`font-bold font-mono ${scoreColor(human.avgScore)}`}>
-              {human.avgScore.toFixed(2)}
-            </span>
-          </div>
-          <div className="h-4 bg-slate-800 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-amber-600 rounded-full transition-all"
-              style={{ width: `${(human.avgScore / maxScore) * 100}%` }}
-            />
-          </div>
+        <div className="h-2.5 bg-slate-800 rounded-full overflow-hidden">
+          <div className={`h-full ${barScore} rounded-full`} style={{ width: `${score}%` }} />
         </div>
       </div>
-      <p className="mt-4 text-center text-sm font-semibold">
-        {lead > 0
-          ? <span className="text-green-400">🤖 AI leads humans by <span className="text-2xl font-bold">{lead.toFixed(1)}</span> pts</span>
-          : <span className="text-amber-400">👤 Humans lead AI by <span className="text-2xl font-bold">{Math.abs(lead).toFixed(1)}</span> pts</span>
-        }
+      <div>
+        <div className="flex justify-between text-xs text-slate-400 mb-1">
+          <span>Truthfulness</span>
+          <span className={`font-mono font-bold ${scoreColor(truth * 100)}`}>{(truth * 100).toFixed(0)}%</span>
+        </div>
+        <div className="h-2.5 bg-slate-800 rounded-full overflow-hidden">
+          <div className={`h-full ${barTruth} rounded-full`} style={{ width: `${truth * 100}%` }} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function HumanVsAI() {
+  const { ai, human } = getHumanVsAI()
+  return (
+    <section className="rounded-xl border border-slate-800 bg-slate-900 p-6">
+      <h2 className="text-lg font-bold text-white mb-1 tracking-tight">⚡ Human vs AI — Verified On-Chain</h2>
+      <p className="text-xs text-slate-500 mb-5">Every score derived from chain state — not self-reported</p>
+      <div className="grid grid-cols-2 gap-6 mb-5">
+        <CohortBar label="🤖 AI Agents"     count={ai.count}    score={ai.avgScore}    truth={ai.avgTruthfulness}    color="blue" />
+        <CohortBar label="👤 Human Traders" count={human.count} score={human.avgScore} truth={human.avgTruthfulness} color="amber" />
+      </div>
+      <p className="text-xs text-slate-500 text-center font-mono border-t border-slate-800 pt-4">
+        AI {ai.avgScore.toFixed(1)} · Human {human.avgScore.toFixed(1)} · all verified on-chain
       </p>
-      <p className="mt-1 text-xs text-slate-500 text-center">Every point is chain-verified — not self-reported.</p>
     </section>
   )
 }
